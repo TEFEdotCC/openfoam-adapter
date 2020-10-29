@@ -425,6 +425,7 @@ void Foam::apiCoupledTemperatureFvPatchScalarField::updateCoeffs
     switch (mode_)
     {
     case fixedHeatFlux:
+        std::cout << "fixedHeatFlux" << std::endl;
         refGrad() = (heatflux_ + qr) / kappa(Twall);
         refValue() = 0;
         valueFraction() = 0;

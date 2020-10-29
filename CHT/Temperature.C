@@ -36,17 +36,23 @@ void preciceAdapter::CHT::Temperature::write(std::vector<double> &buffer, bool m
             //Interpolate from centers to nodes
             const scalarField pointValue (patchInterpolator.faceToPointInterpolate(boundaryPatch));
 
+            std::cout << "CHT::Temperature::write (" << j << ") ";
             forAll(pointValue, i)
             {
                 buffer[bufferIndex++] = pointValue[i];
+                std::cout << boundaryPatch[i] << ", ";
             }
+            std::cout << std::endl;
         }
         else
         {
+            std::cout << "CHT::Temperature::write (" << j << ") ";
             forAll(boundaryPatch, i)
             {
                 buffer[bufferIndex++] = boundaryPatch[i];
+                std::cout << boundaryPatch[i] << ", ";
             }
+            std::cout << std::endl;
         }
     }
 }
@@ -62,9 +68,12 @@ void preciceAdapter::CHT::Temperature::read(const std::vector<double> &buffer, c
         auto &      boundaryPatch   (refCast<apiCoupledTemperatureFvPatchScalarField> (T_.boundaryFieldRef()[patchID]));
         auto &      value           (boundaryPatch.refValue());
 
+        std::cout << "CHT::Temperature::read (" << j << ") ";
         forAll(value, i)
         {
             value[i] = buffer[bufferIndex++];
+            std::cout << value[i] << ", ";
         }
+        std::cout << std::endl;
     }
 }

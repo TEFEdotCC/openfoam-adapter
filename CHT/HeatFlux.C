@@ -43,10 +43,13 @@ void preciceAdapter::CHT::HeatFlux::write(std::vector<double> &buffer, bool mesh
 
         //
         const scalarField & data (value.cref());
+        std::cout << "CHT::HeatFlux::write (" << j << ") ";
         forAll(data, i)
         {
             buffer[bufferIndex++] = -data[i];
+            std::cout << -data[i] << ", ";
         }
+        std::cout << std::endl;
     }
 }
 
@@ -62,9 +65,12 @@ void preciceAdapter::CHT::HeatFlux::read(const std::vector<double> &buffer, cons
         auto &      patchValue      (boundaryPatch.heatFlux());
 
         // For every cell of the patch
+        std::cout << "CHT::HeatFlux::read (" << j << ") ";
         forAll(patchValue, i)
         {
             patchValue[i] = buffer[bufferIndex++];
+            std::cout << patchValue[i] << ", ";
         }
+        std::cout << std::endl;
     }
 }
